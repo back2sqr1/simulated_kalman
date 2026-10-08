@@ -1,0 +1,1 @@
+The goal is to write a Kalman filter from scratch to be simulated in ROS2 and Gazebo

@@ -6,6 +6,7 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
+        "${workspaceFolder}/**",
         "/opt/ros/jazzy/include/**",
         "/usr/include/**"
       ],

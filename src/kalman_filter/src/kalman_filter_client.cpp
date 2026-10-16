@@ -16,11 +16,13 @@ double drand(double start, double end)
     return dis(gen);
 }
 
+
+// moves and get measurement
 Eigen::Vector2d GetMeasurement(Eigen::Vector2d& true_position)
 {
     double dt = 0.1;
     Eigen::Vector2d measurement(true_position(0), true_position(1));
-    Eigen::Vector2d noise(drand(-1.0, 1.0), drand(-1.0, 1.0));
+    Eigen::Vector2d noise(drand(-5.0, 5.0), drand(-5.0, 5.0));
     measurement += noise; // add some noise to the measurement
 
     Eigen::Vector2d velocity(60, 60);

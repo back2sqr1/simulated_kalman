@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Gazebo with our world. -r starts the simulation right away;
+         closing the Gazebo window stops everything. -->
+    <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+        <arg name="gz_args" value="-r $(find-pkg-share kalman_filter)/worlds/kalman.sdf"/>
+        <arg name="on_exit_shutdown" value="true"/>
+    </include>
+
+    <!-- Gazebo -> ROS: true position.  ROS -> Gazebo: velocity commands. -->
+    <node pkg="ros_gz_bridge" exec="parameter_bridge"
+          args="/model/robot/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry /model/robot/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist"/>
+
+    <node pkg="kalman_filter" exec="kalman_filter_gazebo"/>
+</launch>

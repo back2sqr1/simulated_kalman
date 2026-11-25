@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(filter_interface REQUIRED)
+find_package(nav_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -43,10 +44,23 @@ target_include_directories(kalman_filter_client PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/../..
 )
 
+add_executable(kalman_filter_gazebo
+  src/kalman_filter_gazebo.cpp
+  ../../kalman-filter-no-ros/kalman_filter.cpp
+)
+ament_target_dependencies(kalman_filter_gazebo rclcpp filter_interface nav_msgs)
+
+target_include_directories(kalman_filter_gazebo PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/../..
+)
+
 install(TARGETS
   kalman_filter_service
   kalman_filter_client
+  kalman_filter_gazebo
   DESTINATION lib/${PROJECT_NAME})
+
+install(DIRECTORY worlds DESTINATION share/${PROJECT_NAME})
 
 
 ament_package()
